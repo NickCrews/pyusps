@@ -11,12 +11,10 @@ ADDRESS_MAX = 5
 def _get_error(node):
     if node.tag != 'Error':
         return None
-    num = node.find('Number')
-    desc = node.find('Description')
     return ValueError(
         '{num}: {desc}'.format(
-            num=num.text,
-            desc=desc.text,
+            num=node.find('Number').text,
+            desc=node.find('Description').text,
             )
         )
 
