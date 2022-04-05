@@ -317,6 +317,14 @@ def test_verify_multiple(fake_urlopen):
     ]
     eq(res, expected)
 
+
+def test_empty_input():
+    """We can handle empty input."""
+    result = verify("user_id", [])
+    expected = []
+    eq(result, expected)
+
+
 @fudge.patch('pyusps.urlutil.urlopen')
 def test_verify_more_than_5(fake_urlopen):
     addr = {
