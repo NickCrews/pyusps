@@ -1,5 +1,3 @@
-from __future__ import annotations
-
 from collections import OrderedDict
 from typing import Iterable
 
@@ -176,7 +174,7 @@ def _create_xml(
 
     return root
 
-def verify(user_id: str, addresses: Iterable) -> list[OrderedDict]:
+def verify(user_id: str, addresses: Iterable) -> "list[OrderedDict]":
     xml = _create_xml(user_id, addresses)
     res = _get_response(xml)
     res = _parse_response(res)
