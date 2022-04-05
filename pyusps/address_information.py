@@ -5,8 +5,6 @@ from lxml import etree
 
 import pyusps.urlutil
 
-
-api_url = 'https://production.shippingapis.com/ShippingAPI.dll'
 ADDRESS_MAX = 5
 
 
@@ -84,7 +82,7 @@ def _get_response(xml):
             ('XML', etree.tostring(xml)),
             ])
     url = '{api_url}?{params}'.format(
-        api_url=api_url,
+        api_url='https://production.shippingapis.com/ShippingAPI.dll',
         params=pyusps.urlutil.urlencode(params),
         )
 
