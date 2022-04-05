@@ -90,14 +90,14 @@ Examples
 
 Single address request::
 
-    from pyusps import address_information
+    >>> from pyusps import address_information
 
-    addr = {
+    >>> addr = {
         "address": "6406 Ivy Lane",
         "city": "Greenbelt",
         "state": "MD",
     }
-    address_information.verify('foo_id', [addr])
+    >>> address_information.verify('foo_id', [addr])
     [
         {
             "address": "6406 IVY LN",
@@ -110,9 +110,9 @@ Single address request::
 
 Mutiple addresses request::
 
-    from pyusps import address_information
+    >>> from pyusps import address_information
 
-    addrs = [
+    >>> addrs = [
         {
             "address": "6406 Ivy Lane",
             "city": "Greenbelt",
@@ -124,7 +124,7 @@ Mutiple addresses request::
             "state": "CT",
         },
     ]
-    address_information.verify('foo_id', addrs)
+    >>> address_information.verify('foo_id', addrs)
     [
         {
             "address": "6406 IVY LN",
@@ -144,9 +144,9 @@ Mutiple addresses request::
 
 Mutiple addresses error::
 
-    from pyusps import address_information
+    >>> from pyusps import address_information
 
-    addrs = [
+    >>> addrs = [
         {
             "address": "6406 Ivy Lane",
             "city": "Greenbelt",
@@ -158,7 +158,8 @@ Mutiple addresses error::
             "state": "NJ",
         },
     ]
-    address_information.verify('foo_id', addrs)
+    >>> results = address_information.verify('foo_id', addrs)
+    >>> results
     [
         {
             'address': '6406 IVY LN',
@@ -172,6 +173,10 @@ Mutiple addresses error::
         },
         USPSError('-2147219400: Invalid City.  '),
     ]
+    >>> results[1].code
+    '-2147219400'
+    >>> res[1].description
+    'Invalid City.  '
 
 
 Reference
