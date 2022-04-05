@@ -28,7 +28,8 @@ function.
 Requests
 --------
 
-It takes in the user ID given to you by the USPS and a list of addresses to verify.
+It takes in the user ID given to you by the USPS and an iterable of addresses to verify.
+You can only supply up to 5 addresses at a time due to the API's limits.
 Each address is a dict containing the following required keys:
 
      :address: The street address
@@ -75,12 +76,14 @@ were specified in the request is preserved in the response.
 Errors
 ------
 
-A ValueError will be raised if there's a general error, e.g.,
-invalid user id, or if a single address request generates an error.
-Except for a general error, multiple addresses requests do not raise errors.
-Instead, if one of the addresses generates an error, the
-ValueError object is returned along with the rest of the results.
-
+- ValueError will be raised if you request more than 5 addresses.
+- RuntimeError will be raised when the API returns a response that we can't parse
+  or otherwise doesn't make sense (You shouldn't run into this).
+- A USPSError will be raised if the supplied user_id is invalid.
+  USPSError is a subclass of RuntimeError, and has the
+  additional attributes of ``code`` and  ``description`` for the error.
+- If the USPS can't find an address, then in the response list, instead of a dict you
+  will receive a USPSError.
 
 Examples
 --------
