@@ -85,95 +85,91 @@ ValueError object is returned along with the rest of the results.
 Examples
 --------
 
-Single address request:
-```
+Single address request::
 
-from pyusps import address_information
+    from pyusps import address_information
 
-addr = {
-    "address": "6406 Ivy Lane",
-    "city": "Greenbelt",
-    "state": "MD",
-}
-address_information.verify('foo_id', [addr])
-[
-    {
-        "address": "6406 IVY LN",
-        "city": "GREENBELT",
-        "state": "MD",
-        "zip5": "20770",
-        "zip4": "1441",
-    }
-]
-```
-
-Mutiple addresses request:
-```
-from pyusps import address_information
-
-addrs = [
-    {
+    addr = {
         "address": "6406 Ivy Lane",
         "city": "Greenbelt",
         "state": "MD",
-    },
-    {
-        "address": "8 Wildwood Drive",
-        "city": "Old Lyme",
-        "state": "CT",
-    },
-]
-address_information.verify('foo_id', addrs)
-[
-    {
-        "address": "6406 IVY LN",
-        "city": "GREENBELT",
-        "state": "MD",
-        "zip5": "20770",
-        "zip4": "1441",
-    },
-    {
-        "address": "8 WILDWOOD DR",
-        "city": "OLD LYME",
-        "state": "CT",
-        "zip5": "06371",
-        "zip4": "1844",
-    },
-]
-```
+    }
+    address_information.verify('foo_id', [addr])
+    [
+        {
+            "address": "6406 IVY LN",
+            "city": "GREENBELT",
+            "state": "MD",
+            "zip5": "20770",
+            "zip4": "1441",
+        }
+    ]
+
+Mutiple addresses request::
+
+    from pyusps import address_information
+
+    addrs = [
+        {
+            "address": "6406 Ivy Lane",
+            "city": "Greenbelt",
+            "state": "MD",
+        },
+        {
+            "address": "8 Wildwood Drive",
+            "city": "Old Lyme",
+            "state": "CT",
+        },
+    ]
+    address_information.verify('foo_id', addrs)
+    [
+        {
+            "address": "6406 IVY LN",
+            "city": "GREENBELT",
+            "state": "MD",
+            "zip5": "20770",
+            "zip4": "1441",
+        },
+        {
+            "address": "8 WILDWOOD DR",
+            "city": "OLD LYME",
+            "state": "CT",
+            "zip5": "06371",
+            "zip4": "1844",
+        },
+    ]
 
 Mutiple addresses error::
 
-```
-from pyusps import address_information
+    from pyusps import address_information
 
-addrs = [
-    {
-        "address": "6406 Ivy Lane",
-        "city": "Greenbelt",
-        "state": "MD",
-    },
-    {
-        "address": "8 Wildwood Drive",
-        "city": "Old Lyme",
-        "state": "NJ",
-    },
-]
-address_information.verify('foo_id', addrs)
-[
-    {
-        'address': '6406 IVY LN',
-        'city': 'GREENBELT',
-        'returntext': 'Default address: The address you entered was found but more '
-                    'information is needed (such as an apartment, suite, or box '
-                    'number) to match to a specific address.',
-        'state': 'MD',
-        'zip4': '1435',
-        'zip5': '20770'
-    },
-    USPSError('-2147219400: Invalid City.  '),
-]
-```
+    addrs = [
+        {
+            "address": "6406 Ivy Lane",
+            "city": "Greenbelt",
+            "state": "MD",
+        },
+        {
+            "address": "8 Wildwood Drive",
+            "city": "Old Lyme",
+            "state": "NJ",
+        },
+    ]
+    address_information.verify('foo_id', addrs)
+    [
+        {
+            'address': '6406 IVY LN',
+            'city': 'GREENBELT',
+            'returntext': 'Default address: The address you entered was found but more '
+                        'information is needed (such as an apartment, suite, or box '
+                        'number) to match to a specific address.',
+            'state': 'MD',
+            'zip4': '1435',
+            'zip5': '20770'
+        },
+        USPSError('-2147219400: Invalid City.  '),
+    ]
+
 
 Reference
 ---------
