@@ -8,14 +8,12 @@ import pyusps.urlutil
 api_url = 'https://production.shippingapis.com/ShippingAPI.dll'
 address_max = 5
 
-def _find_error(root):
-    if root.tag == 'Error':
-        num = root.find('Number')
-        desc = root.find('Description')
-        return (num, desc)
 
-def _get_error(error):
-    (num, desc) = error
+def _get_error(node):
+    if node.tag != 'Error':
+        return None
+    num = node.find('Number')
+    desc = node.find('Description')
     return ValueError(
         '{num}: {desc}'.format(
             num=num.text,
@@ -24,10 +22,11 @@ def _get_error(error):
         )
 
 def _get_address_error(address):
-    error = address.find('Error')
-    if error is not None:
-        error = _find_error(error)
-        return _get_error(error)
+    error_node = address.find('Error')
+    if error_node is None:
+        return None
+    else:
+        return _get_error(error_node)
 
 def _parse_address(address):
     result = OrderedDict()
@@ -75,9 +74,9 @@ def _process_multiple(addresses):
 
 def _parse_response(res):
     # General error, e.g., authorization
-    error = _find_error(res.getroot())
+    error = _get_error(res.getroot())
     if error is not None:
-        raise _get_error(error)
+        raise error
 
     results = res.findall('Address')
     length = len(results)
