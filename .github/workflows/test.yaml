@@ -42,7 +42,6 @@ jobs:
     name: Build wheels on ${{ matrix.os }}
     needs: [test, lint]
     runs-on: ${{ matrix.os }}
-    if: github.event_name == "push" || github.event_name == "workflow_dispatch"
     strategy:
       matrix:
         os: [ubuntu-20.04, windows-2019, macOS-10.15]
