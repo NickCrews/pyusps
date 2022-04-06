@@ -84,64 +84,10 @@ Errors
 - If the USPS can't find an address, then in the response list, instead of a dict you
   will receive a USPSError.
 
-Examples
---------
+Example
+-------
 
-Single address request::
-
-    >>> from pyusps import address_information
-
-    >>> addr = {
-        "address": "6406 Ivy Lane",
-        "city": "Greenbelt",
-        "state": "MD",
-    }
-    >>> address_information.verify('foo_id', [addr])
-    [
-        {
-            "address": "6406 IVY LN",
-            "city": "GREENBELT",
-            "state": "MD",
-            "zip5": "20770",
-            "zip4": "1441",
-        }
-    ]
-
-Mutiple addresses request::
-
-    >>> from pyusps import address_information
-
-    >>> addrs = [
-        {
-            "address": "6406 Ivy Lane",
-            "city": "Greenbelt",
-            "state": "MD",
-        },
-        {
-            "address": "8 Wildwood Drive",
-            "city": "Old Lyme",
-            "state": "CT",
-        },
-    ]
-    >>> address_information.verify('foo_id', addrs)
-    [
-        {
-            "address": "6406 IVY LN",
-            "city": "GREENBELT",
-            "state": "MD",
-            "zip5": "20770",
-            "zip4": "1441",
-        },
-        {
-            "address": "8 WILDWOOD DR",
-            "city": "OLD LYME",
-            "state": "CT",
-            "zip5": "06371",
-            "zip4": "1844",
-        },
-    ]
-
-Mutiple addresses error::
+Mutiple addresses, one can't be found::
 
     >>> from pyusps import address_information
 
